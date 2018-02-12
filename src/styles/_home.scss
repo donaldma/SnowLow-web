@@ -1,0 +1,57 @@
+.home-background {
+  background: linear-gradient(rgba(20,20,20, .5),rgba(20,20,20, .5)), url('/img/whistler.jpg');
+  background-size: cover;
+}
+.main-header {
+  font-size: 50px;
+}
+
+.sub-header {
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+.how-it-works-header {
+  font-size: 40px;
+}
+
+.how-it-works-sub-header {
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+.how-it-works-container {
+  background-color: white;
+}
+
+.paper:hover {
+  transition: all .2s ease-in;
+  transform: scale(1.05);
+}
+
+.card-seperator {
+  border-width: 4px;
+  border-color: black;
+}
+
+.copyright {
+  color: white;
+  width: 100%;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  background-color:black;
+  letter-spacing: 2px;
+}
+
+.contact-link {
+  color: white;
+}
+
+.contact-link:hover {
+  color: white;
+  text-decoration: none;
+}

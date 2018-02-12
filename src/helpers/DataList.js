@@ -1,0 +1,1 @@
+export const DataList = ['Snowboard Boots', 'Ski Boots', 'Snowboard Bindings']
