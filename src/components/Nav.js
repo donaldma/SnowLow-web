@@ -6,7 +6,7 @@ class Nav extends Component {
     return(
       <nav className='navbar navbar-light navbar-expand-md'>
         <a className='navbar-brand' href='/'>
-          <img src='/img/logo.png' className='logo-image' />
+          <img src='/img/logo.png' alt='logo.png' className='logo-image' />
           <span className='align-middle'>SnowLow</span>
         </a>
         <button className='navbar-toggler navbar-toggler-right collapsed' type='button' data-toggle='collapse' data-target='#navigation'>
