@@ -26,7 +26,8 @@ class HowItWorks extends Component {
               <Paper style={paperStyle} className='paper' zDepth={3}>
                 <h1>Step 1</h1>
                 <hr className='card-seperator'/>
-                <div className='m-t-2 sub-header'>Enter a search term</div>
+                <i className='fas fa-search card-icon'></i>
+                <div className='sub-header'>Enter a search term</div>
               </Paper>
             </div>
 
@@ -34,7 +35,8 @@ class HowItWorks extends Component {
               <Paper style={paperStyle} className='paper' zDepth={3}>
                 <h1>Step 2</h1>
                 <hr className='card-seperator'/>
-                <div className='m-t-2 sub-header'>Find the best deals</div>
+                <i className='fas fa-dollar-sign card-icon'></i>
+                <div className='sub-header'>Find the best deals</div>
               </Paper>
             </div>
           </div>
