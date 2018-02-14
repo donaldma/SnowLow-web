@@ -5,7 +5,7 @@ import config from '../config'
 import { CognitoUserPool, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { userHasAuthenticated } from '../actions/index'
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props)
 
@@ -56,7 +56,7 @@ class Login extends Component {
   render() {
     const styles = {
       paperStyle: {
-        height: 350,
+        height: 450,
         width: '100%',
         padding: '0 3em',
         display: 'inline-block',
@@ -81,9 +81,17 @@ class Login extends Component {
           <div className='col-lg-4 m-t-2 m-b-2'>
             <Paper style={styles.paperStyle} zDepth={1}>
               <div className='login-form'>
-                <h1 className='m-0'>Log in</h1>
+                <h1 className='m-0'>Sign up</h1>
 
                 <form onSubmit={e => this.handleSubmit(e)}>
+                  <TextField
+                    errorText={emailError}
+                    floatingLabelText='Name'
+                    fullWidth={true}
+                    underlineFocusStyle={styles.underlineStyle}
+                    floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                    onChange={(e, val) => this.setState({ email: val })}
+                  />
                   <TextField
                     errorText={emailError}
                     floatingLabelText='Email'
@@ -102,12 +110,22 @@ class Login extends Component {
                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                     onChange={(e, val) => this.setState({ password: val })}
                   />
+                  <TextField
+                    className='m-b-1'
+                    defaultValue={this.props.userIpLocation}
+                    errorText={passwordError}
+                    floatingLabelText='Location'
+                    fullWidth={true}
+                    underlineFocusStyle={styles.underlineStyle}
+                    floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                    onChange={(e, val) => this.setState({ password: val })}
+                  />
                   <RaisedButton
                     onClick={e => this.handleSubmit(e)}
                     disabled={this.state.isLoading}
                     style={styles.buttonStyle}
                     default={true}
-                    label='Log in'
+                    label='Continue'
                   />
                 </form>
               </div>
@@ -119,4 +137,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { userHasAuthenticated })(Login)
+export default connect(null, { userHasAuthenticated })(Signup)

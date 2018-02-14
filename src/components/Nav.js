@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { userHasAuthenticated } from '../actions/index'
+import { signOutUser } from '../actions/awsActions'
 
 class Nav extends Component {
+
+  async handleLogout() {
+    await signOutUser()
+    this.props.userHasAuthenticated(false)
+    window.location.href = '/'
+  }
 
   render() {
     return(
@@ -20,13 +29,24 @@ class Nav extends Component {
             <li className='nav-item d-flex d-md-none'>
               <a className='nav-link' href='/'>Home</a>
             </li>
-
-            <li className='nav-item'>
-              <a className='nav-link' href='/login'>Log in</a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/signup'>Sign up</a>
-            </li>
+            {
+              !this.props.isAuthenticated &&
+              <li className='nav-item'>
+                <a className='nav-link' href='/login'>Log in</a>
+              </li>
+            }
+            {
+              !this.props.isAuthenticated &&
+              <li className='nav-item'>
+                <a className='nav-link' href='/signup'>Sign up</a>
+              </li>
+            }
+            {
+              this.props.isAuthenticated &&
+              <li className='nav-item'>
+                <a className='nav-link' onClick={() => this.handleLogout()}>Log out</a>
+              </li>
+            }
           </ul>
         </div>
       </nav>
@@ -34,4 +54,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default connect(null, { userHasAuthenticated })(Nav)
