@@ -5,7 +5,7 @@
 
 .login-container, .login-form {
   position: relative;
-  top: 45%;
+  top: 42.5%;
   transform: translateY(-50%);
 }
 
@@ -15,4 +15,17 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
     transition-delay: background-color 5000s, color 5000s;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.location-change-link {
+  margin-left: 0.5em;
+  color: #4285f4 !important;
+  cursor: pointer;
+  font-size: 13px;
 }

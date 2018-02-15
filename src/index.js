@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import store, { history } from './store'
@@ -15,7 +16,7 @@ render(
     <ConnectedRouter history={history}>
       <div>
         <MuiThemeProvider>
-          <App />
+          <Route component={App}/>
         </MuiThemeProvider>
       </div>
     </ConnectedRouter>

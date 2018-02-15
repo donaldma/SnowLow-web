@@ -93,7 +93,7 @@ class Login extends Component {
                     onChange={(e, val) => this.setState({ email: val })}
                   />
                   <TextField
-                    className='m-b-1'
+                    className='m-b-2'
                     errorText={passwordError}
                     floatingLabelText='Password'
                     fullWidth={true}
