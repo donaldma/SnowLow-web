@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Paper, RaisedButton, CircularProgress } from 'material-ui'
 import config from '../config'
-import { CognitoUserPool, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import { CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 import { userHasAuthenticated } from '../actions/index'
 
 class Signup extends Component {
@@ -112,7 +112,11 @@ class Signup extends Component {
 
   handleConfirmation = async (event, val) => {
     event.preventDefault()
-    this.setState({ confirmationCode: val, formFocused: true })
+    await this.setState({ confirmationCode: val, formFocused: true })
+
+    if(val.length > 6) {
+      this.setState({ confirmationError: 'Code must not be over 6 characters' })
+    }
 
     if(val.length !== 6) {
       return
@@ -205,10 +209,6 @@ class Signup extends Component {
     return (
       <Paper style={this.state.styles.paperStyleSmall} zDepth={1}>
         {
-          this.state.isLoading ?
-          <div className='login-form text-center'>
-            <CircularProgress size={80} thickness={5} color='black'/>
-          </div> :
           <div className='login-form'>
             <h1 className='m-0'>Confirmation</h1>
 

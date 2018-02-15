@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import SearchBar from '../headache/material-ui-search-bar/lib/index'
 import { combinedDataList } from '../helpers/DataList'
