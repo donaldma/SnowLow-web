@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TextField, Paper, RaisedButton, CircularProgress } from 'material-ui'
+import { TextField, Paper, RaisedButton, LinearProgress } from 'material-ui'
 import config from '../config'
 import { CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 import { userHasAuthenticated } from '../actions/index'
@@ -20,18 +20,17 @@ class Signup extends Component {
       location: props.userIpLocation,
       newUser: null,
       confirmationCode: undefined,
+      confirmationLengthError: undefined,
 
       styles: {
         paperStyle: {
           height: 450,
           width: '100%',
-          padding: '0 3em',
           display: 'inline-block',
         },
         paperStyleSmall: {
           height: 270,
           width: '100%',
-          padding: '0 3em',
           display: 'inline-block',
         },
         buttonStyle: {
@@ -115,14 +114,14 @@ class Signup extends Component {
     await this.setState({ confirmationCode: val, formFocused: true })
 
     if(val.length > 6) {
-      this.setState({ confirmationError: 'Code must not be over 6 characters' })
+      this.setState({ confirmationLengthError: 'Code must not be over 6 characters' })
     }
 
     if(val.length !== 6) {
       return
     }
 
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true, confirmationLengthError: undefined })
 
     try {
       await this.confirm(this.state.newUser, this.state.confirmationCode)
@@ -143,7 +142,11 @@ class Signup extends Component {
 
     return (
       <Paper style={this.state.styles.paperStyle} zDepth={1}>
-        <div className='login-form'>
+        {
+          this.state.isLoading &&
+          <LinearProgress mode='indeterminate' style={{width: '100%', backgroundColor: 'white'}} color='#4285f4' />
+        }
+        <div className='login-form p-l-3 p-r-3'>
           <h1 className='m-0'>Sign up</h1>
 
           <form onSubmit={e => this.handleSubmit(e)}>
@@ -159,6 +162,7 @@ class Signup extends Component {
               errorText={emailError}
               floatingLabelText='Email'
               fullWidth={true}
+              type='email'
               underlineFocusStyle={this.state.styles.underlineStyle}
               floatingLabelFocusStyle={this.state.styles.floatingLabelFocusStyle}
               onChange={(e, val) => this.setState({ email: val })}
@@ -204,29 +208,29 @@ class Signup extends Component {
   }
 
   renderConfirmationForm() {
-    const confirmationError = this.state.formFocused && !this.state.confirmationCode ? 'Please enter a valid code' : ''
+    const confirmationError = this.state.formFocused && !this.state.confirmationCode ? 'Please enter a valid code' : undefined
 
     return (
       <Paper style={this.state.styles.paperStyleSmall} zDepth={1}>
         {
-          <div className='login-form'>
-            <h1 className='m-0'>Confirmation</h1>
-
-            <form onSubmit={e => this.handleConfirmation(e)}>
-              <TextField
-                className='m-t'
-                id='confirmation'
-                type='number'
-                errorText={confirmationError}
-                fullWidth={true}
-                defaultValue=''
-                underlineFocusStyle={this.state.styles.underlineStyle}
-                onChange={(e, val) => this.handleConfirmation(e, val)}
-              />
-              <div className='f-s-12 m-b-2'>*Check junk or spam folders</div>
-            </form>
-          </div>
+          this.state.isLoading &&
+          <LinearProgress mode='indeterminate' style={{width: '100%', backgroundColor: 'white'}} color='#4285f4' />
         }
+        <div className='login-form p-l-3 p-r-3'>
+          <h1 className='m-0'>Confirmation</h1>
+
+          <TextField
+            className='m-t'
+            id='confirmation'
+            type='number'
+            errorText={this.state.confirmationLengthError || confirmationError}
+            fullWidth={true}
+            defaultValue=''
+            underlineFocusStyle={this.state.styles.underlineStyle}
+            onChange={(e, val) => this.handleConfirmation(e, val)}
+          />
+          <div className='f-s-12 m-b-2'>*Check junk or spam folders</div>
+        </div>
       </Paper>
     )
   }
