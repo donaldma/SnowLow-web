@@ -146,7 +146,7 @@ class Signup extends Component {
           this.state.isLoading &&
           <LinearProgress mode='indeterminate' style={{width: '100%', backgroundColor: 'white'}} color='#4285f4' />
         }
-        <div className='login-form p-l-3 p-r-3'>
+        <div className='login-form'>
           <h1 className='m-0'>Sign up</h1>
 
           <form onSubmit={e => this.handleSubmit(e)}>
@@ -216,7 +216,7 @@ class Signup extends Component {
           this.state.isLoading &&
           <LinearProgress mode='indeterminate' style={{width: '100%', backgroundColor: 'white'}} color='#4285f4' />
         }
-        <div className='login-form p-l-3 p-r-3'>
+        <div className='login-form'>
           <h1 className='m-0'>Confirmation</h1>
 
           <TextField

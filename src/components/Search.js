@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 import SearchBar from '../headache/material-ui-search-bar/lib/index'
 import { combinedDataList } from '../helpers/DataList'
 import { getSearchResults } from '../actions/index'
@@ -11,7 +12,8 @@ class Search extends Component {
     super(props)
 
     this.state = {
-      searchBarText: null
+      searchBarText: null,
+      redirect: false
     }
   }
 
@@ -22,13 +24,12 @@ class Search extends Component {
   handleSubmit = async() => {
     const sanitizedSearchTerm = SearchRequestHelper.getSanitizedSearchTerm(this.state.searchBarText)
     await this.props.getSearchResults(sanitizedSearchTerm)
-    console.log(this.props.searchResults)
+    this.setState({ redirect: true })
   }
 
   render() {
-
-    const buttonStyle = {
-      display: this.state.searchBarText && this.state.searchBarText !== '' ? 'inline-block' : 'none'
+    if (this.state.redirect) {
+      return <Redirect to='/results'/>
     }
 
     return(
@@ -53,12 +54,14 @@ class Search extends Component {
           </div>
           <div className='row justify-content-center p-t'>
             <div className='col-lg-12 center text-center'>
-              <RaisedButton
-                onClick={() => this.handleSubmit()}
-                style={buttonStyle}
-                default={true}
-                label='Search'
-              />
+              {
+               this.state.searchBarText && this.state.searchBarText !== '' &&
+               <RaisedButton
+                 onClick={() => this.handleSubmit()}
+                 default={true}
+                 label='Search'
+               />
+              }
             </div>
           </div>
         </section>

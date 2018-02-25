@@ -1,0 +1,12 @@
+.results-background {
+  background-color: white;
+}
+
+.result-card {
+  cursor: pointer;
+}
+
+.result-card:hover {
+  transition: all .2s ease-in;
+  transform: scale(1.05);
+}

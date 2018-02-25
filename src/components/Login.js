@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TextField, Paper, RaisedButton } from 'material-ui'
+import { TextField, Paper, RaisedButton, LinearProgress } from 'material-ui'
 import config from '../config'
 import { CognitoUserPool, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { userHasAuthenticated } from '../actions/index'
@@ -13,7 +13,8 @@ class Login extends Component {
       isLoading: false,
       formSubmitted: false,
       email: undefined,
-      password: undefined
+      password: undefined,
+      loginError: undefined
     }
   }
 
@@ -39,6 +40,7 @@ class Login extends Component {
     this.setState({ isLoading: true, formSubmitted: true })
 
     if(!this.state.email || !this.state.password) {
+      this.setState({ isLoading:false })
       return
     }
 
@@ -49,7 +51,10 @@ class Login extends Component {
       window.location.href = '/'
     } catch (err) {
       console.log(err)
-      this.setState({ isLoading: false })
+      this.setState({
+        isLoading: false,
+        loginError: err.message
+      })
     }
   }
 
@@ -58,7 +63,6 @@ class Login extends Component {
       paperStyle: {
         height: 350,
         width: '100%',
-        padding: '0 3em',
         display: 'inline-block',
       },
       buttonStyle: {
@@ -72,14 +76,26 @@ class Login extends Component {
       }
     }
 
-    const emailError = this.state.formSubmitted && !this.state.email ? 'Please enter an email' : ''
-    const passwordError = this.state.formSubmitted && !this.state.password ? 'Please enter a password' : ''
+    let passwordError, emailError = ''
+    if(this.state.formSubmitted) {
+      if(!this.state.password) {
+        passwordError = 'Please enter a password'
+      } else if(!this.state.email) {
+        emailError = 'Please enter an email'
+      } else if(this.state.loginError) {
+        passwordError = this.state.loginError
+      }
+    }
 
     return(
       <div className='container-fluid login-background'>
         <div className='row justify-content-center login-container'>
           <div className='col-lg-4 m-t-2 m-b-2'>
             <Paper style={styles.paperStyle} zDepth={1}>
+              {
+                this.state.isLoading &&
+                <LinearProgress mode='indeterminate' style={{width: '100%', backgroundColor: 'white'}} color='#4285f4' />
+              }
               <div className='login-form'>
                 <h1 className='m-0'>Log in</h1>
 

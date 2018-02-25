@@ -11,6 +11,7 @@ import Footer from './Footer'
 import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
+import Results from './Results'
 
 class App extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class App extends Component {
             <Route exact path='/' render={()=><Home isAuthenticated={this.props.isAuthenticated}/>}/>
             <Route exact path='/login' render={()=><Login isAuthenticated={this.props.isAuthenticated}/>}/>
             <Route exact path='/signup' render={()=><Signup isAuthenticated={this.props.isAuthenticated} userIpLocation={this.state.userIpLocation} />}/>
+            <Route exact path='/results' render={()=><Results isAuthenticated={this.props.isAuthenticated} />}/>
           </Switch>
         </main>
         <Footer />
