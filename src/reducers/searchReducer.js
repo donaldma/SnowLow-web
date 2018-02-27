@@ -6,7 +6,9 @@ export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case GET_SEARCH_RESULTS:
       if (action.error) {
-        return state
+        return {
+          error: action.payload.response.data.error
+        }
       } else {
         return action.payload.data
       }

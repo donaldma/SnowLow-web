@@ -76,13 +76,14 @@ class Login extends Component {
       }
     }
 
-    let passwordError, emailError = ''
+    const emailError = this.state.formSubmitted && !this.state.email && 'Please enter an email'
+
+    let passwordError
     if(this.state.formSubmitted) {
       if(!this.state.password) {
         passwordError = 'Please enter a password'
-      } else if(!this.state.email) {
-        emailError = 'Please enter an email'
-      } else if(this.state.loginError) {
+      }
+      if(this.state.loginError) {
         passwordError = this.state.loginError
       }
     }
@@ -101,6 +102,7 @@ class Login extends Component {
 
                 <form onSubmit={e => this.handleSubmit(e)}>
                   <TextField
+                    className='m-b-2'
                     errorText={emailError}
                     floatingLabelText='Email'
                     fullWidth={true}

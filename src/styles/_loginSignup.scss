@@ -33,3 +33,8 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   font-size: 13px;
 }
+
+.paper-div {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  border-radius: 2px;
+}

@@ -13,6 +13,7 @@ class Search extends Component {
 
     this.state = {
       searchBarText: null,
+      isLoading: undefined,
       redirect: false
     }
   }
@@ -22,14 +23,19 @@ class Search extends Component {
   }
 
   handleSubmit = async() => {
-    const sanitizedSearchTerm = SearchRequestHelper.getSanitizedSearchTerm(this.state.searchBarText)
-    await this.props.getSearchResults(sanitizedSearchTerm)
-    this.setState({ redirect: true })
+    try {
+      this.setState({ isLoading: true })
+      const sanitizedSearchTerm = SearchRequestHelper.getSanitizedSearchTerm(this.state.searchBarText)
+      await this.props.getSearchResults(sanitizedSearchTerm)
+    } catch(error) {
+      console.log(error)
+    }
+    this.setState({ isLoading: false, redirect: true })
   }
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to='/results'/>
+      return <Redirect from='/' to='/results'/>
     }
 
     return(
@@ -58,6 +64,7 @@ class Search extends Component {
                this.state.searchBarText && this.state.searchBarText !== '' &&
                <RaisedButton
                  onClick={() => this.handleSubmit()}
+                 disabled={this.state.isLoading}
                  default={true}
                  label='Search'
                />

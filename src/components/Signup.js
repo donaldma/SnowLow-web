@@ -24,7 +24,7 @@ class Signup extends Component {
 
       styles: {
         paperStyle: {
-          height: 450,
+          height: 575,
           width: '100%',
           display: 'inline-block',
         },
@@ -95,6 +95,7 @@ class Signup extends Component {
     event.preventDefault()
     this.setState({ isLoading: true, formSubmitted: true })
     if(!this.state.name || !this.state.email || !this.state.password || !this.state.location) {
+      this.setState({ isLoading: false })
       return
     }
 
@@ -151,6 +152,7 @@ class Signup extends Component {
 
           <form onSubmit={e => this.handleSubmit(e)}>
             <TextField
+            className='m-b-2'
               errorText={nameError}
               floatingLabelText='Name'
               fullWidth={true}
@@ -159,6 +161,7 @@ class Signup extends Component {
               onChange={(e, val) => this.setState({ name: val })}
             />
             <TextField
+              className='m-b-2'
               errorText={emailError}
               floatingLabelText='Email'
               fullWidth={true}
@@ -168,6 +171,7 @@ class Signup extends Component {
               onChange={(e, val) => this.setState({ email: val })}
             />
             <TextField
+              className='m-b-2'
               errorText={passwordError}
               floatingLabelText='Password'
               fullWidth={true}
