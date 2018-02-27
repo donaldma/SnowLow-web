@@ -58,19 +58,6 @@ class Search extends Component {
               </div>
             </div>
           </div>
-          <div className='row justify-content-center p-t'>
-            <div className='col-lg-12 center text-center'>
-              {
-               this.state.searchBarText && this.state.searchBarText !== '' &&
-               <RaisedButton
-                 onClick={() => this.handleSubmit()}
-                 disabled={this.state.isLoading}
-                 default={true}
-                 label='Search'
-               />
-              }
-            </div>
-          </div>
         </section>
       </div>
     )

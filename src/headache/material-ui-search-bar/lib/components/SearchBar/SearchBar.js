@@ -75,12 +75,10 @@ var getStyles = function getStyles(props, state) {
     iconButtonSearch: {
       style: _extends({
         opacity: !disabled ? 0.54 : 0.38,
-        transform: nonEmpty ? 'scale(0, 0)' : 'scale(1, 1)',
-        transition: 'transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-        marginRight: -48
+        marginRight: nonEmpty ? -10 : -48
       }, iconButtonStyle),
       iconStyle: {
-        opacity: nonEmpty ? 0 : 1,
+        opacity: 1,
         transition: 'opacity 200ms cubic-bezier(0.4, 0.0, 0.2, 1)'
       }
     },
@@ -202,6 +200,9 @@ var SearchBar = function (_Component) {
           'div',
           { style: styles.searchContainer },
           _react2.default.createElement(_AutoComplete2.default, _extends({
+            filter: function filter(searchText, key) {
+              return key.toLowerCase().includes(searchText.toLowerCase());
+            },
             ref: function ref(_ref) {
               _this2.autoComplete = _ref;
             },
@@ -225,18 +226,16 @@ var SearchBar = function (_Component) {
             spellCheck: spellCheck
           }, inputProps))
         ),
-        // Most useless search button ever.... but might need it someday... todays not the day...
-
-        // _react2.default.createElement(
-        //   _IconButton2.default,
-        //   {
-        //     onClick: onRequestSearch,
-        //     iconStyle: styles.iconButtonSearch.iconStyle,
-        //     style: styles.iconButtonSearch.style,
-        //     disabled: disabled
-        //   },
-        //   searchIcon
-        // ),
+        _react2.default.createElement(
+          _IconButton2.default,
+          {
+            onClick: onRequestSearch,
+            iconStyle: styles.iconButtonSearch.iconStyle,
+            style: styles.iconButtonSearch.style,
+            disabled: disabled
+          },
+          searchIcon
+        ),
         _react2.default.createElement(
           _IconButton2.default,
           {
