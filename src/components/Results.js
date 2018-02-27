@@ -18,9 +18,9 @@ class Results extends Component {
               <p className='how-it-works-sub-header'>Sorry we couldn't find exactly what you were looking for.</p>
               <p><Link to='/' style={{color: '#4285f4'}}>Try another search term.</Link></p>
               <hr className='m-b-3 m-t-3' />
-              <p>Here at SnowLow are always looking for ways to improve.</p>
+              <p>Here at SnowLow we are always looking for ways to improve.</p>
               <p>
-                <a href='mailto:donald@hotmail.ca?Subject=Snowlow%20Contact' style={{color: '#4285f4'}}>Contact Us</a> for any feedback or concerns.
+                <a href='mailto:donald@hotmail.ca?Subject=Snowlow%20Contact' style={{color: '#4285f4'}}>Contact Us</a> for any feedback, questions or concerns.
               </p>
             </div>
           </div>
