@@ -2,6 +2,18 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "deploy": "npm run build && aws s3 sync build/ s3://snowlow",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id EZ6JBD43WS0NC --paths '/*'",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "amazon-cognito-identity-js": "^2.0.0",
     "axios": "^0.17.1",
@@ -24,16 +36,5 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
     "sanitize.css": "^5.0.0"
-  },
-  "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js",
-    "deploy": "npm run build && aws s3 sync build/ s3://snowlow",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   }
 }
